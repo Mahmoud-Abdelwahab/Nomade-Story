@@ -20,7 +20,7 @@ class GetProductRepository: GetProductsRepositoryProtocol{
     
     func fetchRemoteProducts() async throws -> [Product] {
         try await remoteDataSource.fetchProducts().map({
-            Product(description: $0.description ?? "", id: $0.id ?? "", imageURL: $0.imageURL ?? "", name: $0.name ?? "", retailPrice: $0.retailPrice ?? 0)
+            Product(description: $0.value.description ?? "", id: $0.value.id ?? "", imageURL: $0.value.imageURL ?? "", name: $0.value.name ?? "", retailPrice: $0.value.retailPrice ?? 0)
         })
     }
     

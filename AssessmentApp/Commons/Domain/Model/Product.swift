@@ -12,4 +12,5 @@ struct Product {
     let imageURL: String
     let name: String
     let retailPrice: Int
+    let quantity: Int = 0
 }

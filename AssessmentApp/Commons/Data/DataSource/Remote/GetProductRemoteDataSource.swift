@@ -8,12 +8,12 @@
 import Foundation
 
 protocol GetProductRemoteDataSourceProtocol {
-    func fetchProducts() async throws -> [ProductResponse]
+    func fetchProducts() async throws -> ProductListResponse
 }
 
 class GetProductRemoteDataSource: GetProductRemoteDataSourceProtocol {
     
-    func fetchProducts() async throws -> [ProductResponse] {
+    func fetchProducts() async throws -> ProductListResponse {
         guard let url = URL(string: Constants.baseURL)else{   throw APPError.badURL}
         let (data, response) = try await URLSession.shared.data(from: url)
         guard let httpResponse = response as? HTTPURLResponse,
@@ -21,9 +21,9 @@ class GetProductRemoteDataSource: GetProductRemoteDataSourceProtocol {
             throw APPError.with("Invalid Response")
         }
         do {
-          return try JSONDecoder().decode([ProductResponse].self, from: data)
-        }catch{
-            throw APPError.decodingError
+          return try JSONDecoder().decode(ProductListResponse.self, from: data)
+        }catch(let error){
+            throw APPError.with(error.localizedDescription)
         }
     }
 }

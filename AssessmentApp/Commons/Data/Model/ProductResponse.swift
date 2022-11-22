@@ -24,3 +24,6 @@ struct ProductResponse: Codable {
     }
 }
 
+typealias ProductListResponse = [String: ProductResponse]
+
+
