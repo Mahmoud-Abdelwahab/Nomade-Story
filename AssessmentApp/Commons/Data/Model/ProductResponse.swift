@@ -1,13 +1,13 @@
 //
-//  BasketResponse.swift
+//  ProductResponse.swift
 //  AssessmentApp
 //
 //  Created by Mahmoud Abdul-wahab on 22/11/2022.
 //
 
 import Foundation
-// MARK: - BasketResponse
-struct BasketResponse: Codable {
+// MARK: - ProductResponse
+struct ProductResponse: Codable {
     let barcode, description, id: String?
     let imageURL: String?
     let name: String?
