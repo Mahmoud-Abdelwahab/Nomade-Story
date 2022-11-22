@@ -1,12 +1,17 @@
 //
-//  ProductRemoteDataSource.swift
+//  GetProductRemoteDataSource.swift
 //  AssessmentApp
 //
 //  Created by Mahmoud Abdul-wahab on 22/11/2022.
 //
 
 import Foundation
-class ProductRemoteDataSource: ProductDataSource {
+
+protocol GetProductRemoteDataSourceProtocol {
+    func fetchProducts() async throws -> [ProductResponse]
+}
+
+class GetProductRemoteDataSource: GetProductRemoteDataSourceProtocol {
     
     func fetchProducts() async throws -> [ProductResponse] {
         guard let url = URL(string: Constants.baseURL)else{   throw APPError.badURL}

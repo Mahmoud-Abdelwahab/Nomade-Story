@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol GetProductsRepository {
-    func fetchProducts() async throws -> [Product]
+protocol GetProductsRepositoryProtocol {
+    func fetchRemoteProducts() async throws -> [Product]
+    func fetchLocalProducts() async throws -> [Product]
 }
