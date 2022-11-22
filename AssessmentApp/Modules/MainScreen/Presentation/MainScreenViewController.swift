@@ -102,7 +102,9 @@ class MainScreenViewController: UIViewController {
     }
     
     @objc func clearAllButtondidTappped(_ sender: UIBarButtonItem) {
-        
+        viewModel.clearProductlist()
+        viewModel.clearAllCoreData()
+        productListTableVIewController.reloadData()
     }
     
 }

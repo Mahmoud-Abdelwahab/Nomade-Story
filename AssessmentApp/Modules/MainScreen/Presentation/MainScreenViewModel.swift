@@ -75,15 +75,29 @@ class MainScreenViewModel {
     }
     
     func updateProductInCoreData(product: Product){
-        
-    }
-    
-    func addNewProductToCoreData(product: Product) {
+        do {
+            try updateProductUseCase.excute(product: product)
+        } catch let error {
+            productListState.send(.showMessage(error: error.localizedDescription))
+        }
        
     }
     
+    func addNewProductToCoreData(product: Product) {
+        do {
+            try  addProductUseCase.excute(product: product)
+        } catch let error {
+            productListState.send(.showMessage(error: error.localizedDescription))
+
+        }
+    }
+    
     func clearAllCoreData(){
-        
+        do {
+            try  clearProductUseCase.excute()
+        } catch let error {
+            productListState.send(.showMessage(error: error.localizedDescription))
+        }
     }
     
     func clearProductlist(){

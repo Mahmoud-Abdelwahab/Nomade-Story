@@ -17,13 +17,13 @@ class CoredataProductRepository: CoredataProductRepositoryPrototcol{
 
     func fetchProducts()  throws -> [Product] {
         try  localDataSrouces.fetchProducts().map({
-            Product(description: $0.description , id: $0.id, imageURL: $0.imageUrl ?? "", name: $0.name ?? "", retailPrice: $0.retailPrice )
+            return  Product(description: $0.desc ?? "" , id: $0.id, imageURL: $0.imageUrl ?? "", name: $0.name ?? "", retailPrice: $0.retailPrice ,quantity: Int($0.quantity))
         })
     }
     
     
     func addProduct(product: Product) throws {
-        try   localDataSrouces.saveProduct(product: product)
+        try   localDataSrouces.addProduct(product: product)
     }
     
     func updateProduct(product: Product) throws {

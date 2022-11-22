@@ -10,7 +10,7 @@ import UIKit
 
 protocol GetProductLocalDataSourceProtocol{
     func fetchProducts() throws -> [ProductEntity]
-    func saveProduct(product: Product) throws
+    func addProduct(product: Product) throws
     func updateProduct(product: Product) throws
     func deleteAll() throws
 }
@@ -21,16 +21,16 @@ class GetProductLocalDataSource: GetProductLocalDataSourceProtocol{
         return try CoreDataManager.shared.fetchProducts()
     }
     
-    func saveProduct(product: Product) throws {
-      try  CoreDataManager.shared.saveProdcut(product: product)
+    func addProduct(product: Product) throws {
+      try  CoreDataManager.shared.addProduct(product: product)
     }
     
     func updateProduct(product: Product) throws {
-        
+        try CoreDataManager.shared.updateProduct(product: product)
     }
     
     func deleteAll() throws {
-        
+        try CoreDataManager.shared.deleteAll()
     }
 
 }
