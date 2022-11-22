@@ -33,9 +33,10 @@ class AddNewProductViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindUI()
+    
         setupTableView()
         viewModel.getProductList()
+        bindUI()
     }
     
     private func bindUI() {
@@ -51,7 +52,8 @@ class AddNewProductViewController: UIViewController {
     }
     
     private func handleNewSelectedProduct(product: Product){
-        print(product)
+        viewModel.newProduct.send(product)
+        navigationController?.popViewController(animated: true)
     }
     
     private func handleScreenState(state: ScreenState<[Product]>){

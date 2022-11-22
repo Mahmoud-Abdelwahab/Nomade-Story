@@ -9,5 +9,4 @@ import Foundation
 
 protocol GetProductsRepositoryProtocol {
     func fetchRemoteProducts() async throws -> [Product]
-    func fetchLocalProducts() async throws -> [Product]
 }

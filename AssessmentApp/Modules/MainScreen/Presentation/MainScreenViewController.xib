@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainScreenViewController" customModule="AssessmentApp" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="EEL-nq-YwZ" id="VZ0-r2-pnH"/>
+                <outlet property="emptyStateLable" destination="rkP-3R-euH" id="aFk-HU-Fwr"/>
+                <outlet property="productListTableVIewController" destination="uQ2-Yh-vzZ" id="CxT-Ve-O4J"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,12 +21,42 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uQ2-Yh-vzZ">
+                    <rect key="frame" x="0.0" y="47" width="390" height="797"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EEL-nq-YwZ">
+                    <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ooops! No Products Saved Please click add button to add new products" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkP-3R-euH">
+                    <rect key="frame" x="10" y="401.66666666666669" width="370" height="40.666666666666686"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemMintColor"/>
-            <point key="canvasLocation" x="117" y="-12"/>
+            <constraints>
+                <constraint firstItem="uQ2-Yh-vzZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="3Mt-2L-pZR"/>
+                <constraint firstItem="uQ2-Yh-vzZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Q5Z-go-074"/>
+                <constraint firstItem="rkP-3R-euH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="S2D-Jt-7Br"/>
+                <constraint firstItem="EEL-nq-YwZ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="aTz-Ia-gg6"/>
+                <constraint firstItem="EEL-nq-YwZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fo7-hZ-hV6"/>
+                <constraint firstItem="rkP-3R-euH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="j5e-L9-Iif"/>
+                <constraint firstAttribute="bottom" secondItem="uQ2-Yh-vzZ" secondAttribute="bottom" id="pRV-0z-naq"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uQ2-Yh-vzZ" secondAttribute="trailing" id="scF-QK-6Nz"/>
+                <constraint firstAttribute="trailing" secondItem="rkP-3R-euH" secondAttribute="trailing" constant="10" id="sxf-Lc-vTK"/>
+                <constraint firstItem="rkP-3R-euH" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="tbi-MM-JGE"/>
+            </constraints>
+            <point key="canvasLocation" x="116.92307692307692" y="-12.085308056872037"/>
         </view>
     </objects>
     <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

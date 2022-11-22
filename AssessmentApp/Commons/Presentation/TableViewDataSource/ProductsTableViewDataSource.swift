@@ -12,7 +12,7 @@ class ProductsTableViewDataSource:NSObject, UITableViewDataSource,UITableViewDel
  
     var productList: [Product]?
     var selectedProduct: ((Product)->())?
-    
+    var hideQuantity = true
      init(selectedProduct: @escaping ((Product)->()) ) {
         self.selectedProduct = selectedProduct
     }
@@ -25,7 +25,7 @@ class ProductsTableViewDataSource:NSObject, UITableViewDataSource,UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
         guard let product = productList?[indexPath.row] else {return UITableViewCell()}
-                cell.configureCell(product: product)
+                cell.configureCell(product: product,hidProductQuantity: hideQuantity)
         return cell
     }
     

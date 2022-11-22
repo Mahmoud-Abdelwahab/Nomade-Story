@@ -9,6 +9,7 @@ import UIKit
 import Combine
 
 class ProductTableViewCell: UITableViewCell {
+    @IBOutlet weak var quantityLable: UILabel!
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productDescriptionLable: UILabel!
     @IBOutlet weak var productNameLable: UILabel!
@@ -19,12 +20,16 @@ class ProductTableViewCell: UITableViewCell {
     }
     
     
-    func configureCell(product: Product){
+    func configureCell(product: Product, hidProductQuantity: Bool){
         anyCancelable =  ImageLoader(urlString: product.imageURL).didChange.sink(receiveValue: {[weak self] in
             guard let self else {return}
             self.productImage.image = UIImage(data: $0)
         })
         productNameLable.text = product.name
         productDescriptionLable.text = product.description
+        if !hidProductQuantity{
+            quantityLable.isHidden = false
+            quantityLable.text =  " Quantity: \( product.quantity)"
+        }
     }
 }

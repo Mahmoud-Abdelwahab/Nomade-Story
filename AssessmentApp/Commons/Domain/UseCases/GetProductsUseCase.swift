@@ -13,9 +13,7 @@ class GetProductsUseCase {
         self.repository = repository
     }
     
-    func excute(isFromRemote: Bool) async throws -> [Product]{
-           let remoteResult = try await  repository.fetchRemoteProducts()
-           let localResult = try await  repository.fetchLocalProducts()
-        return isFromRemote ? remoteResult : localResult
+    func excute() async throws -> [Product]{
+          return  try await  repository.fetchRemoteProducts()
     }
 }

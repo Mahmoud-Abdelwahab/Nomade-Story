@@ -7,21 +7,23 @@
 //
 
 import UIKit
-#warning("""
-The initial viewcontroller should show the shopping basket.
-It should contain a 'Plus' button for adding new items to the basket.
-It should contain a 'Clear' button for removing all items in the basket.
-""")
-
+import Combine
 
 class MainScreenViewController: UIViewController {
 
-    ///TableView is embedded in the ScrollView.
-    ///Set the Size of table view  on the basis of content in it.
+    @IBOutlet weak var productListTableVIewController: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var emptyStateLable: UILabel!
+    
+    private let dataSource: ProductsTableViewDataSource
+    private var anyCancelable: Set<AnyCancellable>
+    
     let viewModel: MainScreenViewModel
     //MARK: - Initialization
-    init(viewModel: MainScreenViewModel){
-        self.viewModel = viewModel
+    init(viewModel: MainScreenViewModel,dataSource: ProductsTableViewDataSource){
+        self.viewModel     = viewModel
+        self.dataSource    = dataSource
+        self.anyCancelable = Set<AnyCancellable>()
         super.init(nibName: String(describing: type(of: self)), bundle: nil)
     }
     
@@ -31,7 +33,61 @@ class MainScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindUI()
          setupNavigationController()
+        setupTableView()
+        viewModel.fechLocatProducts()
+    }
+    
+    private func bindUI() {
+        viewModel.productListState.sink { [weak self] in
+            guard let self  else {return}
+            self.handleScreenState(state: $0)
+        }.store(in: &anyCancelable)
+        
+        dataSource.selectedProduct = { [weak self]  in
+            guard let self  else {return}
+            self.handleNewSelectedProduct(product: $0)
+        }
+    }
+    
+    private func handleNewSelectedProduct(product: Product){
+        print(product)
+    }
+    
+    private func handleScreenState(state: ScreenState<[Product]>){
+        switch state {
+        case .startLoading:
+            startLoding()
+        case .stopLoading:
+            stopLoading()
+        case .result(let result):
+            self.populateTableViewWith(products: result)
+        case .showMessage(let error):
+            self.showAlert(message: error)
+        }
+    }
+    
+    private func populateTableViewWith(products: [Product]) {
+        self.emptyStateLable.isHidden = !products.isEmpty
+        self.dataSource.productList?.removeAll()
+        self.dataSource.productList = products
+        self.productListTableVIewController.reloadData()
+    }
+    
+    private func startLoding(){
+        activityIndicator.startAnimating()
+    }
+    
+    private func stopLoading(){
+        activityIndicator.stopAnimating()
+    }
+    
+    private func setupTableView() {
+        productListTableVIewController.register(UINib(nibName: ProductTableViewCell.identifier, bundle: .main), forCellReuseIdentifier: ProductTableViewCell.identifier)
+        dataSource.hideQuantity                   = false
+        productListTableVIewController.delegate   = dataSource
+        productListTableVIewController.dataSource = dataSource
     }
     
     private func setupNavigationController(){
@@ -52,5 +108,4 @@ class MainScreenViewController: UIViewController {
 }
 
 
-
-
+extension MainScreenViewController: Alertable{}

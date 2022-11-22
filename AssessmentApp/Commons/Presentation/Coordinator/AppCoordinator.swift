@@ -19,7 +19,7 @@ class AppCoordinator {
     }
     
     func start() {
-        let mainControllerViewController = MainScreenViewController(viewModel: MainScreenViewModel())
+        let mainControllerViewController = MainScreenViewController(viewModel: MainScreenViewModel(), dataSource: ProductsTableViewDataSource())
         navigationController = UINavigationController(rootViewController: mainControllerViewController)
         navigationController?.isNavigationBarHidden = false
         window.rootViewController = navigationController
@@ -27,12 +27,10 @@ class AppCoordinator {
     }
     
     func openRemotProductListViewController() -> AnyPublisher<Product,Never>{
-        let publisher = PassthroughSubject<Product, Never>()
-        let addNewProductViewController = AddNewProductViewController(viewModel: AddProductsViewModel(getProductUseCase: GetProductsUseCase()), dataSource: ProductsTableViewDataSource(selectedProduct: { product in
-            publisher.send(product)
-        }))
-        navigationController?.pushViewController(addNewProductViewController, animated: true)
-        return publisher.eraseToAnyPublisher()
+       let viewModel =  AddProductsViewModel(getProductUseCase: GetProductsUseCase())
+        let addNewProductViewController = AddNewProductViewController(viewModel: viewModel, dataSource: ProductsTableViewDataSource())
+         navigationController?.pushViewController(addNewProductViewController, animated: true)
+        return viewModel.newProduct.eraseToAnyPublisher()
     }
     
     func navigateToDetails() {
