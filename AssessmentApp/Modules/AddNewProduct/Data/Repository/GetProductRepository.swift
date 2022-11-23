@@ -7,7 +7,7 @@
 
 import Foundation
 class GetProductRepository: GetProductsRepositoryProtocol{
-
+    
     private let remoteDataSource: GetProductRemoteDataSourceProtocol
     init(
         remoteDataSource: GetProductRemoteDataSourceProtocol = GetProductRemoteDataSource()

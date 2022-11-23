@@ -16,13 +16,13 @@ protocol GetProductLocalDataSourceProtocol{
 }
 
 class GetProductLocalDataSource: GetProductLocalDataSourceProtocol{
-
+    
     func fetchProducts() throws -> [ProductEntity] {
         return try CoreDataManager.shared.fetchProducts()
     }
     
     func addProduct(product: Product) throws {
-      try  CoreDataManager.shared.addProduct(product: product)
+        try  CoreDataManager.shared.addProduct(product: product)
     }
     
     func updateProduct(product: Product) throws {
@@ -32,5 +32,5 @@ class GetProductLocalDataSource: GetProductLocalDataSourceProtocol{
     func deleteAll() throws {
         try CoreDataManager.shared.deleteAll()
     }
-
+    
 }

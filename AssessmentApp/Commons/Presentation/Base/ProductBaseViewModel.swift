@@ -10,6 +10,5 @@ import Combine
 
 protocol ProductBaseViewModel {
     var productListState: CurrentValueSubject<ScreenState<[Product]>,Never> { get }
-    
     func fechProducts()
 }

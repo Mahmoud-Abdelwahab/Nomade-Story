@@ -79,15 +79,15 @@ extension MainScreenViewController: Controllable {
             guard let self  else {return}
             self.handleSelectedProduct(product: $0)
         }
-
+        
         viewModel.recalculateTotalRetailPrice.sink { [weak self] in
             guard let self  else {return}
             self.handleCalulatedRetailsPrices()
         }.store(in: &anyCancelable)
     }
     
-   private func  handleCalulatedRetailsPrices() {
-       totalRetailLable.text = self.viewModel.totalRetailPrices(productList: viewModel.productList)
+    private func  handleCalulatedRetailsPrices() {
+        totalRetailLable.text = self.viewModel.totalRetailPrices(productList: viewModel.productList)
     }
     
     func handleSelectedProduct(product: Product){

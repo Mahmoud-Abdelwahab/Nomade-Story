@@ -12,7 +12,7 @@ struct ProductResponse: Codable {
     let imageURL: String?
     let name: String?
     let retailPrice, costPrice: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case barcode
         case description

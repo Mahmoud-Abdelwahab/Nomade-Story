@@ -8,12 +8,12 @@
 import Foundation
 
 class GetProductsUseCase {
-   private let repository: GetProductsRepositoryProtocol
+    private let repository: GetProductsRepositoryProtocol
     init(repository: GetProductsRepositoryProtocol = GetProductRepository()){
         self.repository = repository
     }
     
     func excute() async throws -> [Product]{
-          return  try await  repository.fetchRemoteProducts()
+        return  try await  repository.fetchRemoteProducts()
     }
 }

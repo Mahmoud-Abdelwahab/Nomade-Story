@@ -11,10 +11,10 @@ class CoredataProductRepository: CoredataProductRepositoryPrototcol{
     
     private let localDataSrouces: GetProductLocalDataSourceProtocol
     init(localDataSrouces: GetProductLocalDataSourceProtocol = GetProductLocalDataSource()
-        ){
+    ){
         self.localDataSrouces = localDataSrouces
     }
-
+    
     func fetchProducts()  throws -> [Product] {
         try  localDataSrouces.fetchProducts().map({
             return  Product(description: $0.desc ?? "" , id: $0.id, imageURL: $0.imageUrl ?? "", name: $0.name ?? "", retailPrice: $0.retailPrice ,quantity: Int($0.quantity))

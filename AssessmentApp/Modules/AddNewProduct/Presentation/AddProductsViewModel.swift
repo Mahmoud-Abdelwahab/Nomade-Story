@@ -8,9 +8,12 @@
 import Combine
 class AddProductsViewModel: ProductBaseViewModel {
     
+    //MARK: - Variables
     let productListState = CurrentValueSubject<ScreenState<[Product]>,Never>(.result([]))
     let newProduct = PassthroughSubject<Product, Never>()
     private let getProductUseCase: GetProductsUseCase
+    
+    //MARK: - Initialization
     init(getProductUseCase: GetProductsUseCase) {
         self.getProductUseCase = getProductUseCase
     }
@@ -19,13 +22,13 @@ class AddProductsViewModel: ProductBaseViewModel {
         productListState.send(.startLoading)
         Task{
             do{
-             let result =  try await getProductUseCase.excute()
+                let result =  try await getProductUseCase.excute()
                 productListState.send(.result(result))
             }catch(let error){
                 productListState.send(.showMessage(error: error.localizedDescription))
             }
             productListState.send(.stopLoading)
         }
-       
+        
     }
 }

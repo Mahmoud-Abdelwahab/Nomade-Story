@@ -13,7 +13,7 @@ class AppCoordinator {
     static let shared = AppCoordinator()
     var navigationController: UINavigationController?
     let window: UIWindow
-
+    
     private init() {
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
     }
@@ -27,14 +27,14 @@ class AppCoordinator {
     }
     
     func openRemotProductListViewController() -> AnyPublisher<Product,Never>{
-       let viewModel =  AddProductsViewModel(getProductUseCase: GetProductsUseCase())
+        let viewModel =  AddProductsViewModel(getProductUseCase: GetProductsUseCase())
         let addNewProductViewController = AddNewProductViewController(viewModel: viewModel, dataSource: ProductsTableViewDataSource())
-         navigationController?.pushViewController(addNewProductViewController, animated: true)
+        navigationController?.pushViewController(addNewProductViewController, animated: true)
         return viewModel.newProduct.eraseToAnyPublisher()
     }
     
     func navigateToDetails(product: Product) {
-      let detailsViewController = DetailsViewController()
+        let detailsViewController = DetailsViewController()
         detailsViewController.product = product
         navigationController?.pushViewController(detailsViewController, animated: true)
     }

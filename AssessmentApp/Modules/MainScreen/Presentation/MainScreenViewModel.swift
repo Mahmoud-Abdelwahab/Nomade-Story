@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class MainScreenViewModel: ProductBaseViewModel {
-    
+    //MARK: - Variables
     let productListState = CurrentValueSubject<ScreenState<[Product]>,Never>(.result([]))
     let recalculateTotalRetailPrice = PassthroughSubject<Void,Never>()
     
@@ -19,6 +19,8 @@ class MainScreenViewModel: ProductBaseViewModel {
     private let fetchProductUseCase: FetchProductsUseCase
     private let updateProductUseCase: UpdateProductUseCase
     private let clearProductUseCase: ClearProductsUseCase
+    
+    //MARK: - Initialization
     init(){
         self.addProductUseCase    = AddProductToCoreDataUseCase()
         self.fetchProductUseCase  = FetchProductsUseCase()
@@ -32,7 +34,7 @@ class MainScreenViewModel: ProductBaseViewModel {
         productListState.send(.startLoading)
         Task{
             do{
-              let result = try  fetchProductUseCase.excute()
+                let result = try  fetchProductUseCase.excute()
                 self.productList = result
                 productListState.send(.result(result))
                 recalculateTotalRetailPrice.send(())
@@ -41,7 +43,7 @@ class MainScreenViewModel: ProductBaseViewModel {
             }
             productListState.send(.stopLoading)
         }
-       
+        
     }
     
     private func isProductLocallyExists(product: Product) -> Bool{
@@ -66,7 +68,7 @@ class MainScreenViewModel: ProductBaseViewModel {
         productListState.send(.result(productList))
         recalculateTotalRetailPrice.send(())
     }
-
+    
     func totalRetailPrices(productList:  [Product]) -> String {
         var sum = 0.0
         productList.forEach({ product in
@@ -95,7 +97,7 @@ class MainScreenViewModel: ProductBaseViewModel {
         } catch let error {
             productListState.send(.showMessage(error: error.localizedDescription))
         }
-       
+        
     }
     
     private func addNewProductToCoreData(product: Product) {
@@ -103,7 +105,7 @@ class MainScreenViewModel: ProductBaseViewModel {
             try  addProductUseCase.excute(product: product)
         } catch let error {
             productListState.send(.showMessage(error: error.localizedDescription))
-
+            
         }
     }
     
