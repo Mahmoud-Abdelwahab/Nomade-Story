@@ -36,7 +36,7 @@ class AddNewProductViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        viewModel.getProductList()
+        viewModel.fechProducts()
         bindUI()
     }
     

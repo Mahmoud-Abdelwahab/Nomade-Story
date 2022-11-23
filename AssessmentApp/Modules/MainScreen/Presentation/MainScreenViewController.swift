@@ -38,7 +38,7 @@ class MainScreenViewController: UIViewController {
         bindUI()
         setupNavigationController()
         setupTableView()
-        viewModel.fechLocatProducts()
+        viewModel.fechProducts()
     }
     
     private func setupNavigationController(){

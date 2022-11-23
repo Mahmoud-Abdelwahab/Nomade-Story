@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class MainScreenViewModel {
+class MainScreenViewModel: ProductBaseViewModel {
     
     let productListState = CurrentValueSubject<ScreenState<[Product]>,Never>(.result([]))
     let recalculateTotalRetailPrice = PassthroughSubject<Void,Never>()
@@ -28,7 +28,7 @@ class MainScreenViewModel {
     }
     
     @MainActor
-    func fechLocatProducts(){
+    func fechProducts(){
         productListState.send(.startLoading)
         Task{
             do{

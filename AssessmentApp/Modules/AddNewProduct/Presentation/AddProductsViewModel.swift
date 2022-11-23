@@ -6,7 +6,7 @@
 //
 
 import Combine
-class AddProductsViewModel {
+class AddProductsViewModel: ProductBaseViewModel {
     
     let productListState = CurrentValueSubject<ScreenState<[Product]>,Never>(.result([]))
     let newProduct = PassthroughSubject<Product, Never>()
@@ -15,7 +15,7 @@ class AddProductsViewModel {
         self.getProductUseCase = getProductUseCase
     }
     @MainActor
-    func getProductList() {
+    func fechProducts() {
         productListState.send(.startLoading)
         Task{
             do{

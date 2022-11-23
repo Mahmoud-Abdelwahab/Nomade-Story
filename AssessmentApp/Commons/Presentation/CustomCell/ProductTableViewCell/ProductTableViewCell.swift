@@ -10,8 +10,10 @@ import Combine
 
 class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var quantityLable: UILabel!
+    @IBOutlet weak var retailPriceLable: UILabel!
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productDescriptionLable: UILabel!
+    @IBOutlet weak var quantityStackView: UIStackView!
     @IBOutlet weak var productNameLable: UILabel!
     static var  identifier = "ProductTableViewCell"
     var anyCancelable: AnyCancellable?
@@ -28,8 +30,9 @@ class ProductTableViewCell: UITableViewCell {
         productNameLable.text = product.name
         productDescriptionLable.text = product.description
         if !hidProductQuantity{
-            quantityLable.isHidden = false
+            quantityStackView.isHidden = false
             quantityLable.text =  " Quantity: \( product.quantity)"
+            retailPriceLable.text = "Retail Price for 1 Quantity: \(product.retailPrice) EGP"
         }
     }
 }

@@ -29,12 +29,23 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQS-P7-o6f">
-                                        <rect key="frame" x="147" y="23.333333333333336" width="41.333333333333343" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="ina-9Q-x9U">
+                                        <rect key="frame" x="106.66666666666669" y="23.333333333333336" width="122" height="0.0"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQS-P7-o6f">
+                                                <rect key="frame" x="0.0" y="0.0" width="31" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uPW-aA-eqa">
+                                                <rect key="frame" x="90.999999999999986" y="0.0" width="31" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XDK-Oi-2l6">
                                         <rect key="frame" x="127.66666666666666" y="49" width="80" height="80"/>
                                         <constraints>
@@ -80,6 +91,8 @@
                 <outlet property="productImage" destination="XDK-Oi-2l6" id="Tej-6J-EmU"/>
                 <outlet property="productNameLable" destination="6uf-a2-X8h" id="lUJ-rZ-xOm"/>
                 <outlet property="quantityLable" destination="JQS-P7-o6f" id="mF5-SC-6Fi"/>
+                <outlet property="quantityStackView" destination="ina-9Q-x9U" id="bIq-YH-yRa"/>
+                <outlet property="retailPriceLable" destination="uPW-aA-eqa" id="Cc8-14-NQW"/>
             </connections>
             <point key="canvasLocation" x="114.61538461538461" y="6.0426540284360186"/>
         </tableViewCell>
