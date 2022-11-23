@@ -6,31 +6,31 @@
 //
 
 import XCTest
+@testable import AssessmentApp
 
 final class MainScreenViewModelTests: XCTestCase {
 
-    let sut = Mai
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    let networkServiceMock = NetworkServiceMock()
+    var sut = MainScreenViewModel()
+  
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testNumber_of_mocked_product_is_5() throws {
+        let productList  = try!  networkServiceMock.fetchProducts().map({
+                    Product(description: $0.value.description ?? "", id: $0.value.id ?? "", imageURL: $0.value.imageURL ?? "", name: $0.value.name ?? "", retailPrice: Double($0.value.retailPrice ?? 0))
+                })
+        let actual = 5
+        let expected = productList.count
+        XCTAssertEqual(actual, expected)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testNumber_total_retail_price_is_2300() throws {
+        let productList  = try!  networkServiceMock.fetchProducts().map({
+                    Product(description: $0.value.description ?? "", id: $0.value.id ?? "", imageURL: $0.value.imageURL ?? "", name: $0.value.name ?? "", retailPrice: Double($0.value.retailPrice ?? 0))
+                })
+        
+        let actual = "Total Retails Price: 2300.0 EGP"
+        let expected = sut.totalRetailPrices(productList: productList)
+        XCTAssertEqual(actual, expected)
     }
 
 }
