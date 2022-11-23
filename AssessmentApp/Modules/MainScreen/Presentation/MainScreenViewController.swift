@@ -10,12 +10,13 @@ import UIKit
 import Combine
 
 class MainScreenViewController: UIViewController {
-
+    //MARK: - OutLets
     @IBOutlet weak var productListTableVIewController: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyStateLable: UILabel!
     
-    private let dataSource: ProductsTableViewDataSource
+    //MARK: - Variables
+    private var dataSource: ProductsTableViewDataSource
     private var anyCancelable: Set<AnyCancellable>
     
     let viewModel: MainScreenViewModel
@@ -34,12 +35,43 @@ class MainScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindUI()
-         setupNavigationController()
+        setupNavigationController()
         setupTableView()
         viewModel.fechLocatProducts()
     }
     
-    private func bindUI() {
+    private func setupNavigationController(){
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .done, target: self, action: #selector(addNewProductdidTappped))
+        addButton.tintColor = .black
+        let clearAllButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(clearAllButtondidTappped))
+        clearAllButton.tintColor = .black
+        navigationItem.rightBarButtonItems = [addButton,clearAllButton]
+        title = "My Basket"
+    }
+    
+    //MARK: - Actions
+    @objc func addNewProductdidTappped(_ sender: UIBarButtonItem) {
+        viewModel.openAddNewProductController()
+    }
+    
+    @objc func clearAllButtondidTappped(_ sender: UIBarButtonItem) {
+        if viewModel.isThereAnyProducts(){
+            showTwoActionAlert(title: "Alert", message: "You Are About To Clear All Basket Products, Are you sure! 👀", okButtonTitle: "Confirm", cancelButtonTitle: "Cancel",okHandler : {[weak self] in
+                guard let self else{return}
+                self.viewModel.clearAll()
+            })
+        }else{
+            showAlert(message: "Nothing To Delete 😁")
+        }
+        
+            
+        
+    }
+    
+}
+extension MainScreenViewController: Controllable {
+    
+    func bindUI() {
         viewModel.productListState.sink { [weak self] in
             guard let self  else {return}
             self.handleScreenState(state: $0)
@@ -51,16 +83,17 @@ class MainScreenViewController: UIViewController {
         }
     }
     
-    private func handleNewSelectedProduct(product: Product){
+    func handleNewSelectedProduct(product: Product){
         print(product)
     }
     
-    private func handleScreenState(state: ScreenState<[Product]>){
+    func handleScreenState(state: ScreenState<[Product]>){
         switch state {
         case .startLoading:
             startLoding()
         case .stopLoading:
             stopLoading()
+            break
         case .result(let result):
             self.populateTableViewWith(products: result)
         case .showMessage(let error):
@@ -68,43 +101,26 @@ class MainScreenViewController: UIViewController {
         }
     }
     
-    private func populateTableViewWith(products: [Product]) {
+    func populateTableViewWith(products: [Product]) {
         self.emptyStateLable.isHidden = !products.isEmpty
         self.dataSource.productList?.removeAll()
         self.dataSource.productList = products
         self.productListTableVIewController.reloadData()
     }
     
-    private func startLoding(){
+    func startLoding(){
         activityIndicator.startAnimating()
     }
     
-    private func stopLoading(){
+    func stopLoading(){
         activityIndicator.stopAnimating()
     }
     
-    private func setupTableView() {
+    func setupTableView() {
         productListTableVIewController.register(UINib(nibName: ProductTableViewCell.identifier, bundle: .main), forCellReuseIdentifier: ProductTableViewCell.identifier)
         dataSource.hideQuantity                   = false
         productListTableVIewController.delegate   = dataSource
         productListTableVIewController.dataSource = dataSource
-    }
-    
-    private func setupNavigationController(){
-        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .done, target: self, action: #selector(addNewProductdidTappped))
-        let clearAllButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(clearAllButtondidTappped))
-        navigationItem.rightBarButtonItems = [addButton,clearAllButton]
-        title = "Local Products"
-    }
-
-    @objc func addNewProductdidTappped(_ sender: UIBarButtonItem) {
-        viewModel.openAddNewProductController()
-    }
-    
-    @objc func clearAllButtondidTappped(_ sender: UIBarButtonItem) {
-        viewModel.clearProductlist()
-        viewModel.clearAllCoreData()
-        productListTableVIewController.reloadData()
     }
     
 }

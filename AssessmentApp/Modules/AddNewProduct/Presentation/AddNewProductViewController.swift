@@ -10,14 +10,16 @@ import Combine
 
 class AddNewProductViewController: UIViewController {
     
+    //MARK: - Outlets
     @IBOutlet weak var productListTableVIewController: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyStateLable: UILabel!
     
+    //MARK: - Variables
     private let dataSource: ProductsTableViewDataSource
     private let viewModel: AddProductsViewModel
     private var anyCancelable: Set<AnyCancellable>
-
+    
     //MARK: - Initialization
     init(viewModel: AddProductsViewModel,
          dataSource: ProductsTableViewDataSource){
@@ -33,13 +35,16 @@ class AddNewProductViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         setupTableView()
         viewModel.getProductList()
         bindUI()
     }
     
-    private func bindUI() {
+    
+}
+
+extension AddNewProductViewController: Controllable {
+    func bindUI() {
         viewModel.productListState.sink { [weak self] in
             guard let self  else {return}
             self.handleScreenState(state: $0)
@@ -51,12 +56,12 @@ class AddNewProductViewController: UIViewController {
         }
     }
     
-    private func handleNewSelectedProduct(product: Product){
+    func handleNewSelectedProduct(product: Product){
         viewModel.newProduct.send(product)
         navigationController?.popViewController(animated: true)
     }
     
-    private func handleScreenState(state: ScreenState<[Product]>){
+    func handleScreenState(state: ScreenState<[Product]>){
         switch state {
         case .startLoading:
             startLoding()
@@ -69,26 +74,25 @@ class AddNewProductViewController: UIViewController {
         }
     }
     
-    private func populateTableViewWith(products: [Product]) {
+    func populateTableViewWith(products: [Product]) {
         self.emptyStateLable.isHidden = !products.isEmpty
         self.dataSource.productList = products
         self.productListTableVIewController.reloadData()
     }
     
-    private func startLoding(){
+    func startLoding(){
         activityIndicator.startAnimating()
     }
     
-    private func stopLoading(){
+    func stopLoading(){
         activityIndicator.stopAnimating()
     }
     
-    private func setupTableView() {
+    func setupTableView() {
         productListTableVIewController.register(UINib(nibName: ProductTableViewCell.identifier, bundle: .main), forCellReuseIdentifier: ProductTableViewCell.identifier)
         productListTableVIewController.delegate   = dataSource
         productListTableVIewController.dataSource = dataSource
     }
 }
-
 
 extension AddNewProductViewController: Alertable{}

@@ -41,7 +41,7 @@ class MainScreenViewModel {
        
     }
     
-    func isProductLocallyExists(product: Product) -> Bool{
+    private func isProductLocallyExists(product: Product) -> Bool{
         productList.contains(where: {$0.id == product.id})
     }
     
@@ -52,7 +52,7 @@ class MainScreenViewModel {
             }).store(in: &anyCancelable)
     }
     
-    func onGetNewProduct(product: Product) {
+    private func onGetNewProduct(product: Product) {
         if self.isProductLocallyExists(product: product) {
             updateProductInCoreData(product: product)
             updateCurrentList(product: product)
@@ -64,17 +64,17 @@ class MainScreenViewModel {
     }
 
     
-    func updateCurrentList(product: Product) {
+    private func updateCurrentList(product: Product) {
         if let index =  productList.firstIndex(where: {$0.id == product.id}){
             productList[index].quantity += 1
         }
     }
     
-    func addNewProductToCurrentList(product: Product){
+    private func addNewProductToCurrentList(product: Product){
         productList.append(product)
     }
     
-    func updateProductInCoreData(product: Product){
+    private func updateProductInCoreData(product: Product){
         do {
             try updateProductUseCase.excute(product: product)
         } catch let error {
@@ -83,7 +83,7 @@ class MainScreenViewModel {
        
     }
     
-    func addNewProductToCoreData(product: Product) {
+    private func addNewProductToCoreData(product: Product) {
         do {
             try  addProductUseCase.excute(product: product)
         } catch let error {
@@ -92,7 +92,7 @@ class MainScreenViewModel {
         }
     }
     
-    func clearAllCoreData(){
+    private func clearAllCoreData(){
         do {
             try  clearProductUseCase.excute()
         } catch let error {
@@ -100,7 +100,17 @@ class MainScreenViewModel {
         }
     }
     
-    func clearProductlist(){
+    private func clearProductlist(){
         productList.removeAll()
+    }
+    
+    func clearAll(){
+        clearAllCoreData()
+        clearProductlist()
+        productListState.send(.result([]))
+    }
+    
+    func isThereAnyProducts() -> Bool {
+        return !productList.isEmpty
     }
 }

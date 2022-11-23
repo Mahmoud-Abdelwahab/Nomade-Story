@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,7 +21,7 @@
                         <rect key="frame" x="7" y="7" width="355" height="189"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eOR-F9-l8U">
-                                <rect key="frame" x="10" y="5" width="335" height="179"/>
+                                <rect key="frame" x="10" y="8" width="335" height="173"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uf-a2-X8h">
                                         <rect key="frame" x="146.33333333333334" y="0.0" width="42.333333333333343" height="19.333333333333332"/>
@@ -37,14 +36,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XDK-Oi-2l6">
-                                        <rect key="frame" x="127.66666666666666" y="52" width="80" height="80"/>
+                                        <rect key="frame" x="127.66666666666666" y="49" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="CcI-BT-qXp"/>
                                             <constraint firstAttribute="width" secondItem="XDK-Oi-2l6" secondAttribute="height" multiplier="1:1" id="mpN-Sf-LDm"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="602-Ua-QkK">
-                                        <rect key="frame" x="152" y="164.66666666666666" width="31" height="14.333333333333343"/>
+                                        <rect key="frame" x="152" y="158.66666666666666" width="31" height="14.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -52,13 +51,18 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.99607843159999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="eOR-F9-l8U" firstAttribute="leading" secondItem="LSd-ri-DXS" secondAttribute="leading" constant="10" id="VZS-fS-HB5"/>
-                            <constraint firstItem="eOR-F9-l8U" firstAttribute="top" secondItem="LSd-ri-DXS" secondAttribute="top" constant="5" id="bnX-5Z-6sa"/>
-                            <constraint firstAttribute="bottom" secondItem="eOR-F9-l8U" secondAttribute="bottom" constant="5" id="oNq-QX-fhg"/>
+                            <constraint firstItem="eOR-F9-l8U" firstAttribute="top" secondItem="LSd-ri-DXS" secondAttribute="top" constant="8" id="bnX-5Z-6sa"/>
+                            <constraint firstAttribute="bottom" secondItem="eOR-F9-l8U" secondAttribute="bottom" constant="8" id="oNq-QX-fhg"/>
                             <constraint firstAttribute="trailing" secondItem="eOR-F9-l8U" secondAttribute="trailing" constant="10" id="sum-St-Mhk"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,9 +84,4 @@
             <point key="canvasLocation" x="114.61538461538461" y="6.0426540284360186"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>
