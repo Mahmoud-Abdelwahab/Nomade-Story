@@ -11,7 +11,9 @@ import Combine
 class MainScreenViewModel {
     
     let productListState = CurrentValueSubject<ScreenState<[Product]>,Never>(.result([]))
-    private var productList = [Product]()
+    let recalculateTotalRetailPrice = PassthroughSubject<Void,Never>()
+    
+    private(set) var productList = [Product]()
     private var anyCancelable: Set<AnyCancellable>
     private let addProductUseCase: AddProductToCoreDataUseCase
     private let fetchProductUseCase: FetchProductsUseCase
@@ -30,9 +32,10 @@ class MainScreenViewModel {
         productListState.send(.startLoading)
         Task{
             do{
-              let result = try await fetchProductUseCase.excute()
+              let result = try  fetchProductUseCase.excute()
                 self.productList = result
                 productListState.send(.result(result))
+                recalculateTotalRetailPrice.send(())
             }catch(let error){
                 productListState.send(.showMessage(error: error.localizedDescription))
             }
@@ -61,8 +64,20 @@ class MainScreenViewModel {
             addNewProductToCurrentList(product: product)
         }
         productListState.send(.result(productList))
+        recalculateTotalRetailPrice.send(())
     }
 
+    func totalRetailPrices(productList:  [Product]) -> String {
+        var sum = 0.0
+        productList.forEach({ product in
+            if product.quantity > 1{
+                sum  += (product.retailPrice*Double(product.quantity))
+            }else{
+                sum  += product.retailPrice
+            }
+        })
+        return "Total Retails Price: \(sum) EGP"
+    }
     
     private func updateCurrentList(product: Product) {
         if let index =  productList.firstIndex(where: {$0.id == product.id}){
@@ -108,9 +123,15 @@ class MainScreenViewModel {
         clearAllCoreData()
         clearProductlist()
         productListState.send(.result([]))
+        recalculateTotalRetailPrice.send(())
     }
     
     func isThereAnyProducts() -> Bool {
         return !productList.isEmpty
     }
+    
+    func navigateToDetailsController(product: Product) {
+        AppCoordinator.shared.navigateToDetails(product: product)
+    }
+    
 }

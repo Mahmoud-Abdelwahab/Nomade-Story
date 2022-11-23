@@ -33,8 +33,10 @@ class AppCoordinator {
         return viewModel.newProduct.eraseToAnyPublisher()
     }
     
-    func navigateToDetails() {
-      
+    func navigateToDetails(product: Product) {
+      let detailsViewController = DetailsViewController()
+        detailsViewController.product = product
+        navigationController?.pushViewController(detailsViewController, animated: true)
     }
     
 }

@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 protocol Controllable {
-    func handleNewSelectedProduct(product: Product)
     func bindUI()
     func handleScreenState(state: ScreenState<[Product]>)
     func populateTableViewWith(products: [Product])

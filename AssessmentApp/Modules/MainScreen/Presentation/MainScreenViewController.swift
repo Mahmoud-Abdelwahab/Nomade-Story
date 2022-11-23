@@ -15,6 +15,7 @@ class MainScreenViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyStateLable: UILabel!
     
+    @IBOutlet weak var totalRetailLable: UILabel!
     //MARK: - Variables
     private var dataSource: ProductsTableViewDataSource
     private var anyCancelable: Set<AnyCancellable>
@@ -63,9 +64,6 @@ class MainScreenViewController: UIViewController {
         }else{
             showAlert(message: "Nothing To Delete 😁")
         }
-        
-            
-        
     }
     
 }
@@ -79,12 +77,21 @@ extension MainScreenViewController: Controllable {
         
         dataSource.selectedProduct = { [weak self]  in
             guard let self  else {return}
-            self.handleNewSelectedProduct(product: $0)
+            self.handleSelectedProduct(product: $0)
         }
+
+        viewModel.recalculateTotalRetailPrice.sink { [weak self] in
+            guard let self  else {return}
+            self.handleCalulatedRetailsPrices()
+        }.store(in: &anyCancelable)
     }
     
-    func handleNewSelectedProduct(product: Product){
-        print(product)
+   private func  handleCalulatedRetailsPrices() {
+       totalRetailLable.text = self.viewModel.totalRetailPrices(productList: viewModel.productList)
+    }
+    
+    func handleSelectedProduct(product: Product){
+        viewModel.navigateToDetailsController(product: product)
     }
     
     func handleScreenState(state: ScreenState<[Product]>){

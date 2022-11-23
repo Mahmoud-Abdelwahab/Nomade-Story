@@ -65,7 +65,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" red="0.47450980390000003" green="0.31372550129999999" blue="0.32941177490000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 <constraints>
                     <constraint firstItem="LSd-ri-DXS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="0pZ-mm-jsL"/>
                     <constraint firstItem="LSd-ri-DXS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="X2Q-CH-eCk"/>
@@ -74,7 +74,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.47450980390000003" green="0.31372550129999999" blue="0.32941177490000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <connections>
                 <outlet property="productDescriptionLable" destination="602-Ua-QkK" id="2fy-ms-gmd"/>
                 <outlet property="productImage" destination="XDK-Oi-2l6" id="Tej-6J-EmU"/>
